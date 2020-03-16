@@ -1,0 +1,15 @@
+{
+    "name": "stas/test",
+    "description": "For test purpose",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Stas Nesterenko",
+            "email": "staslimon@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "jenssegers/blade": "dev-master"
+    }
+}
