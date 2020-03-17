@@ -9,7 +9,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{ $user->name }} {{ $user->secondname }}</h5>
                 <p class="card-text">Email: {{ $user->email }}</p>
-                <a href="{{ $SITE_URL }}{{ CURRENT_LANG }}/logout" class="btn btn-primary">{{ _('Выход') }}</a>
+                <a href="{{ SITE_URL }}{{ CURRENT_LANG }}/logout" class="btn btn-primary">{{ _('Выход') }}</a>
             </div>
         </div>
     </div>
