@@ -61,4 +61,12 @@ class Auth
     {
         unset($_SESSION['auth']);
     }
+
+    /**
+     * Возвращает ID залогиненого пользователя
+     */
+    public function getUserId()
+    {
+        return $_SESSION['auth']['user_id'];
+    }
 }
