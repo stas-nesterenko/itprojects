@@ -17,3 +17,57 @@ msgstr ""
 
 msgid "Регистрация"
 msgstr "Registration"
+
+msgid "Упс!"
+msgstr "Oops!"
+
+msgid "Страница не найдена!"
+msgstr "Page not found!"
+
+msgid "Выход"
+msgstr "Logout"
+
+msgid "поле обязательно к заполнению"
+msgstr "Logout"
+
+msgid "слишком короткое значение"
+msgstr "Logout"
+
+msgid "слишком длинное значение"
+msgstr "Logout"
+
+msgid "значение введенно с ошибкой"
+msgstr "Logout"
+
+msgid "не совпадает с введенным паролем"
+msgstr "Logout"
+
+msgid "пользователь с таким email уже зарегестрирован"
+msgstr "Logout"
+
+msgid "некорректный формат файла"
+msgstr "Logout"
+
+msgid "максимальный размер файла - 5 MB"
+msgstr "Logout"
+
+msgid "Ваше имя"
+msgstr "Logout"
+
+msgid "Ваша фамилия"
+msgstr "Logout"
+
+msgid "Ваш email"
+msgstr "Logout"
+
+msgid "Ваше фото"
+msgstr "Logout"
+
+msgid "Пароль"
+msgstr "Logout"
+
+msgid "Подтверждение пароля"
+msgstr "Logout"
+
+msgid "Зарегистрироваться"
+msgstr "Logout"
