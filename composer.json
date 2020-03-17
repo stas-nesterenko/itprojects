@@ -16,6 +16,7 @@
     "minimum-stability": "dev",
     "require": {
         "jenssegers/blade": "dev-master",
-        "ext-gettext": "*"
+        "ext-gettext": "*",
+        "usmanhalalit/pixie": "2.*@dev"
     }
 }

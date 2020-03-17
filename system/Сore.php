@@ -3,6 +3,7 @@
 namespace TestSystem;
 
 use Exception;
+use Pixie\Connection;
 use TestSystem\Pages\NotFoundController;
 
 /**
@@ -52,6 +53,21 @@ class Core
     {
         date_default_timezone_set('Europe/Kiev');
         mb_internal_encoding('UTF-8');
+
+        new Connection('mysql', [
+            'driver'    => 'mysql',
+            'host'      => SQL_HOST,
+            'database'  => SQL_BASE,
+            'username'  => SQL_LOGIN,
+            'password'  => SQL_PWD,
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+            'options'   => [
+                \PDO::ATTR_TIMEOUT => 5,
+                \PDO::ATTR_EMULATE_PREPARES => false,
+            ],
+        ], 'DB');
 
         session_start();
 
