@@ -8,8 +8,14 @@
             "email": "staslimon@gmail.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "TestSystem\\": "system/"
+        }
+    },
     "minimum-stability": "dev",
     "require": {
-        "jenssegers/blade": "dev-master"
+        "jenssegers/blade": "dev-master",
+        "ext-gettext": "*"
     }
 }
