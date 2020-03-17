@@ -9,6 +9,8 @@ class UserPersonalController extends AbstractController
 {
     public function init()
     {
+        $this->setPageTitle(_('Личный кабинет'));
+
         if (!Auth::getInstance()->ifLogged()) {
             header('location: ' . SITE_URL . CURRENT_LANG . '/login', null, 301);
             die();
