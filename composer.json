@@ -17,6 +17,7 @@
     "require": {
         "jenssegers/blade": "dev-master",
         "ext-gettext": "*",
-        "usmanhalalit/pixie": "2.*@dev"
+        "usmanhalalit/pixie": "2.*@dev",
+        "ext-json": "*"
     }
 }
