@@ -1,7 +1,7 @@
 <?php
 
 return [
-    '/' => 'UserPersonalController',
+    '' => 'UserPersonalController',
     '/registration' => 'UserRegistrationController',
     '/login' => 'UserLoginController',
     '/logout' => 'UserLogoutController'
