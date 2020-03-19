@@ -1,4 +1,5 @@
 !cache/blade/.gitkeep
+!cache/.htaccess
 
 vendor
 cache/*
