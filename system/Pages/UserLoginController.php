@@ -4,6 +4,7 @@ namespace TestSystem\Pages;
 
 use TestSystem\AbstractController;
 use TestSystem\Auth;
+use TestSystem\Validation;
 
 class UserLoginController extends AbstractController
 {
@@ -16,16 +17,16 @@ class UserLoginController extends AbstractController
         $this->setPageTitle(_('Авторизация'));
 
         if (Auth::getInstance()->ifLogged()) {
-            header('location: ' . SITE_URL . CURRENT_LANG . '/personal', null, 301);
+            header('location: ' . SITE_URL . CURRENT_LANG, null, 301);
             die();
         }
 
-        return $this->view->render('login');
+        return $this->render('login', []);
     }
 
     private function login()
     {
-        $response = [];
+        header('Content-Type: application/json');
 
         $fields = [
             'email' => [
@@ -40,34 +41,23 @@ class UserLoginController extends AbstractController
             ],
         ];
 
-        foreach ($fields as $fieldName => $fieldParams) {
-            if (!isset($_POST)) {
-                $response['field_error'][$fieldName] = _('поле обязательно к заполнению');
-            } else if (mb_strlen($_POST[$fieldName]) < $fieldParams['min']) {
-                $response['field_error'][$fieldName] = _('слишком короткое значение');
-            } else if (mb_strlen($_POST[$fieldName]) > $fieldParams['max']) {
-                $response['field_error'][$fieldName] = _('слишком длинное значение');
-            } else if (!preg_match($fieldParams['regex'], $_POST[$fieldName])) {
-                $response['field_error'][$fieldName] = _('значение введенно с ошибкой');
-            }
+        $Validation = new Validation($fields);
+
+        if (!$Validation->valid()) {
+            return json_encode($Validation->getErrors());
         }
 
-        if (!isset($response['field_error'])) {
+        if ($Validation->valid()) {
             if ($user = \DB::table('users')->select(['password', 'id'])->where('email', '=', $_POST['email'])->get()) {
-                if (!password_verify($_POST['password'], $user[0]->password)) {
+                if (password_verify($_POST['password'], $user[0]->password)) {
+                    Auth::getInstance()->logMeIn($user[0]->id);
+                    return json_encode(['location' => SITE_URL . CURRENT_LANG]);
+                } else {
                     $response['field_error']['password'] = _('введен неверный пароль');
                 }
             } else {
                 $response['field_error']['email'] = _('пользователь с таким Email не найден');
             }
         }
-
-        if (!isset($response['field_error']) && isset($user[0])) {
-            Auth::getInstance()->logMeIn($user[0]->id);
-            $response['location'] = SITE_URL . CURRENT_LANG;
-        }
-
-        header('Content-Type: application/json');
-        return json_encode($response);
     }
 }

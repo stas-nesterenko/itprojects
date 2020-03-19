@@ -4,6 +4,7 @@ namespace TestSystem\Pages;
 
 use TestSystem\AbstractController;
 use TestSystem\Auth;
+use TestSystem\Validation;
 
 class UserRegistrationController extends AbstractController
 {
@@ -16,7 +17,7 @@ class UserRegistrationController extends AbstractController
         $this->setPageTitle(_('Регистрация'));
 
         if (Auth::getInstance()->ifLogged()) {
-            header('location: /', null, 301);
+            header('location: ' . SITE_URL . CURRENT_LANG, null, 301);
             die();
         }
 
@@ -24,7 +25,7 @@ class UserRegistrationController extends AbstractController
     }
 
     private function saveUser() {
-        $response = [];
+        header('Content-Type: application/json');
 
         $fields = [
             'name' => [
@@ -65,68 +66,47 @@ class UserRegistrationController extends AbstractController
             ]
         ];
 
-        $user = [];
+        $Validation = new Validation($fields, $files);
 
-        foreach ($fields as $fieldName => $fieldParams) {
-            if (!isset($_POST)) {
-                $response['field_error'][$fieldName] = _('поле обязательно к заполнению');
-            } else if (mb_strlen($_POST[$fieldName]) < $fieldParams['min']) {
-                $response['field_error'][$fieldName] = _('слишком короткое значение');
-            } else if (mb_strlen($_POST[$fieldName]) > $fieldParams['max']) {
-                $response['field_error'][$fieldName] = _('слишком длинное значение');
-            } else if (!preg_match($fieldParams['regex'], $_POST[$fieldName])) {
-                $response['field_error'][$fieldName] = _('значение введенно с ошибкой');
-            } else {
-                $user[$fieldName] = $_POST[$fieldName];
-            }
+        if (!$Validation->valid()) {
+            return json_encode($Validation->getErrors());
         }
 
-        if (
-            isset($user['password']) &&
-            isset($user['passwordConfirm']) &
-            $user['password'] != $user['passwordConfirm']
+        if ($_POST['password'] != $_POST['passwordConfirm']
         ) {
-            $response['field_error']['passwordConfirm'] = _('не совпадает с введенным паролем');
+            return json_encode([
+                'field_error' => [
+                    'passwordConfirm' => _('не совпадает с введенным паролем')
+                ]
+            ]);
         }
 
-        if (
-            isset($user['email']) &&
-            \DB::table('users')->select('*')->findAll('email', $user['email'])
-        ) {
-            $response['field_error']['email'] = _('пользователь с таким email уже зарегестрирован');
+        if (\DB::table('users')->select('*')->findAll('email', $_POST['email'])) {
+            return json_encode([
+                'field_error' => [
+                    'email' => _('пользователь с таким email уже зарегистрирован')
+                ]
+            ]);
         }
 
-        foreach ($files as $fileName => $fileParams) {
-            if (isset($_FILES[$fileName]) && $_FILES[$fileName]['tmp_name']) {
-                if (!in_array($_FILES[$fileName]['type'], $fileParams['types'])) {
-                    $response['field_error'][$fileName] = _('некорректный формат файла');
-                } else if ($_FILES[$fileName]['size'] > $fileParams['max']) {
-                    $response['field_error'][$fileName] = _('максимальный размер файла - 5 MB');
-                }
+        $user = array_intersect_key($_POST, $fields);
+        unset($user['passwordConfirm']);
+
+        $user['password'] = password_hash($user['password'], PASSWORD_DEFAULT);
+
+        $user_id = \DB::table('users')->insert($user);
+
+        if (isset($_FILES['image']['tmp_name'])) {
+            $userStorageDir = 'public/storage/users/' . $user_id;
+
+            mkdir($userStorageDir, 0777, true);
+            if (@copy($_FILES['image']['tmp_name'], $userStorageDir . '/' . $_FILES['image']['name'])) {
+                \DB::table('users')->where('id', $user_id)->update(['image' => $_FILES['image']['name']]);
             }
         }
 
-        if (!isset($response['field_error'])) {
-            unset($user['passwordConfirm']);
-            $user['password'] = password_hash($user['password'], PASSWORD_DEFAULT);
+        Auth::getInstance()->logMeIn($user_id);
 
-            $user_id = \DB::table('users')->insert($user);
-
-            if (isset($_FILES['image']['tmp_name'])) {
-                $userStorageDir = 'public/storage/users/' . $user_id;
-
-                mkdir($userStorageDir, 0777, true);
-                if (@copy($_FILES['image']['tmp_name'], $userStorageDir . '/' . $_FILES['image']['name'])) {
-                    \DB::table('users')->where('id', $user_id)->update(['image' => $_FILES['image']['name']]);
-                }
-            }
-
-            Auth::getInstance()->logMeIn($user_id);
-
-            $response['location'] = SITE_URL . CURRENT_LANG;
-        }
-
-        header('Content-Type: application/json');
-        return json_encode($response);
+        return json_encode(['location' => SITE_URL . CURRENT_LANG]);
     }
 }

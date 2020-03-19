@@ -91,6 +91,8 @@ class Core
             $out_url = str_replace('/' . $request_uri[0], '', $out_url);
         } elseif (empty($request_uri)) {
             $this->setLocalParams(DEFAULT_LANG);
+            header('location: ' . SITE_URL . CURRENT_LANG);
+            die();
         } else {
             $this->setLocalParams(DEFAULT_LANG);
             throw new Exception(_('Страница не найдена'), 404);
