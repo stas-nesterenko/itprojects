@@ -28,46 +28,64 @@ msgid "Выход"
 msgstr "Logout"
 
 msgid "поле обязательно к заполнению"
-msgstr "Logout"
+msgstr "field is required"
 
 msgid "слишком короткое значение"
-msgstr "Logout"
+msgstr "value too short"
 
 msgid "слишком длинное значение"
-msgstr "Logout"
+msgstr "value too long"
 
-msgid "значение введенно с ошибкой"
-msgstr "Logout"
+msgid "значение введено с ошибкой"
+msgstr "value entered with error"
 
 msgid "не совпадает с введенным паролем"
-msgstr "Logout"
+msgstr "does not match password entered"
 
-msgid "пользователь с таким email уже зарегестрирован"
-msgstr "Logout"
+msgid "пользователь с таким email уже зарегистрирован"
+msgstr "user with such email is already registered"
 
 msgid "некорректный формат файла"
-msgstr "Logout"
+msgstr "invalid file format"
 
 msgid "максимальный размер файла - 5 MB"
-msgstr "Logout"
+msgstr "maximum file size - 5 MB"
 
 msgid "Ваше имя"
-msgstr "Logout"
+msgstr "Your name"
 
 msgid "Ваша фамилия"
-msgstr "Logout"
+msgstr "Your last name"
 
 msgid "Ваш email"
-msgstr "Logout"
+msgstr "Your email"
 
 msgid "Ваше фото"
-msgstr "Logout"
+msgstr "Your photo"
 
 msgid "Пароль"
-msgstr "Logout"
+msgstr "Password"
 
 msgid "Подтверждение пароля"
-msgstr "Logout"
+msgstr "Password confirmation"
 
 msgid "Зарегистрироваться"
-msgstr "Logout"
+msgstr "Sign up"
+
+msgid "введен неверный пароль"
+msgstr "invalid password entered"
+
+msgid "пользователь с таким Email не найден"
+msgstr "user with this email not found"
+
+msgid "Авторизация"
+msgstr "Login"
+
+msgid "Войти"
+msgstr "Login"
+
+msgid "Личный кабинет"
+msgstr "Personal"
+
+msgid "Тестовый сайт"
+msgstr "Test site"
