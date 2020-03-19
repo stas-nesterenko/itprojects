@@ -64,7 +64,7 @@ class UserLoginController extends AbstractController
 
         if (!isset($response['field_error']) && isset($user[0])) {
             Auth::getInstance()->logMeIn($user[0]->id);
-            $response['location'] = SITE_URL . CURRENT_LANG . '/personal';
+            $response['location'] = SITE_URL . CURRENT_LANG;
         }
 
         header('Content-Type: application/json');

@@ -123,7 +123,7 @@ class UserRegistrationController extends AbstractController
 
             Auth::getInstance()->logMeIn($user_id);
 
-            $response['location'] = SITE_URL . CURRENT_LANG . '/personal';
+            $response['location'] = SITE_URL . CURRENT_LANG;
         }
 
         header('Content-Type: application/json');

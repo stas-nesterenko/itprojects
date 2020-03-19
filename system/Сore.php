@@ -88,7 +88,7 @@ class Core
 
         if (isset(SITE_LANG[$request_uri[0]])) {
             $this->setLocalParams($request_uri[0]);
-            $out_url = str_replace('/' . $request_uri[0] . '/', '/', $out_url);
+            $out_url = str_replace('/' . $request_uri[0], '', $out_url);
         } elseif (empty($request_uri)) {
             $this->setLocalParams(DEFAULT_LANG);
         } else {
