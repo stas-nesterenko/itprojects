@@ -72,8 +72,7 @@ class UserRegistrationController extends AbstractController
             return json_encode($Validation->getErrors());
         }
 
-        if ($_POST['password'] != $_POST['passwordConfirm']
-        ) {
+        if ($_POST['password'] != $_POST['passwordConfirm']) {
             return json_encode([
                 'field_error' => [
                     'passwordConfirm' => _('не совпадает с введенным паролем')

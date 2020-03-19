@@ -45,18 +45,24 @@ class UserLoginController extends AbstractController
 
         if (!$Validation->valid()) {
             return json_encode($Validation->getErrors());
-        }
-
-        if ($Validation->valid()) {
+        } else {
             if ($user = \DB::table('users')->select(['password', 'id'])->where('email', '=', $_POST['email'])->get()) {
                 if (password_verify($_POST['password'], $user[0]->password)) {
                     Auth::getInstance()->logMeIn($user[0]->id);
                     return json_encode(['location' => SITE_URL . CURRENT_LANG]);
                 } else {
-                    $response['field_error']['password'] = _('введен неверный пароль');
+                    return json_encode([
+                        'field_error' => [
+                            'password' => _('введен неверный пароль')
+                        ]
+                    ]);
                 }
             } else {
-                $response['field_error']['email'] = _('пользователь с таким Email не найден');
+                return json_encode([
+                    'field_error' => [
+                        'email' => _('пользователь с таким Email не найден')
+                    ]
+                ]);
             }
         }
     }

@@ -15,6 +15,10 @@ class Validation
         $this->request = $request_type == 'post' ? $_POST : $_GET;
     }
 
+    /**
+     * проводит валидацию запроса
+     * @return bool
+     */
     public function valid()
     {
         foreach ($this->fields as $fieldName => $fieldParams) {
@@ -43,6 +47,10 @@ class Validation
         return true;
     }
 
+    /**
+     * Возвращает массив с ошибками
+     * @return array
+     */
     public function getErrors()
     {
         $response = [];
