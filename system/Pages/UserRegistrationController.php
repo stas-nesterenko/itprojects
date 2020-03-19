@@ -126,8 +126,6 @@ class UserRegistrationController extends AbstractController
             $response['location'] = SITE_URL . CURRENT_LANG . '/personal';
         }
 
-        out:
-
         header('Content-Type: application/json');
         return json_encode($response);
     }

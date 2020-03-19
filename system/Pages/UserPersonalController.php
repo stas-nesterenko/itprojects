@@ -18,6 +18,6 @@ class UserPersonalController extends AbstractController
 
         $user = \DB::table('users')->find(Auth::getInstance()->getUserId());
 
-        return $this->view->render('personal', ['user' => $user]);
+        return $this->render('personal', ['user' => $user]);
     }
 }

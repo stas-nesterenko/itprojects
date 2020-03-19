@@ -36,6 +36,7 @@
                     <div class="invalid-feedback"></div>
                 </div>
                 <button type="submit" class="btn btn-primary">{{ _('Зарегистрироваться') }}</button>
+                <a href="{{ SITE_URL }}{{ CURRENT_LANG }}/login" class="btn btn-default">{{ _('Войти') }}</a>
             </form>
         </div>
     </div>
