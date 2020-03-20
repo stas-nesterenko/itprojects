@@ -5,6 +5,7 @@
         <div class="col-md-12">
             <h1>{{ _('Регистрация') }}</h1>
             <form action="{{ SITE_URL }}{{ CURRENT_LANG }}/registration" method="POST">
+                <input type="hidden" name="validationRules" value="{{ json_encode($validationRules) }}">
                 <div class="form-group">
                     <label for="name">{{ _('Ваше имя') }}</label>
                     <input type="text" class="form-control" id="name" name="name">
@@ -22,7 +23,7 @@
                 </div>
                 <div class="form-group">
                     <label for="file">{{ _('Ваше фото') }}</label>
-                    <input type="file" class="form-control" id="file" name="image">
+                    <input type="file" class="form-control" id="file" name="image" accept="{{ $validationRules['image']['types'] }}">
                     <div class="invalid-feedback"></div>
                 </div>
                 <div class="form-group">

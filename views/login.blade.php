@@ -5,6 +5,7 @@
         <div class="col-md-12">
             <h1>{{ _('Авторизация') }}</h1>
             <form action="{{ SITE_URL }}{{ CURRENT_LANG }}/login" method="POST">
+                <input type="hidden" name="validationRules" value="{{ json_encode($validationRules) }}">
                 <div class="form-group">
                     <label for="email">{{ _('Ваш email') }}</label>
                     <input type="text" class="form-control" id="email" name="email">
